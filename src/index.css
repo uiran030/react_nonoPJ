@@ -52,6 +52,9 @@ input:focus {
 .back-secondary {
   background-color: #e2f1ff;
 }
+.back-primaryDark {
+  background-color: #0043af;
+}
 
 .row {
   margin-left: 280px;
@@ -126,3 +129,11 @@ input:focus {
 } */
 
 /* 토스트창 디자인 변경하기 */
+:root {
+  --toastify-color-light: #0043af;
+  --toastify-text-color-light: #fff;
+  /* --toastify-icon-color: #fff; */
+  /* --toastify-text-weight: 100; */
+  /* --toastify-toast-min-height: 60px;
+  --toastify-toast-min-width: 420px; */
+}

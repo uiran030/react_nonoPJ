@@ -18,7 +18,7 @@ async function NoticePost(title, content, focus, createdAt, updatedAt, writer) {
   }
 }
 
-// Notice 조회(get) 내림차순
+// Notice 조회(get)
 // export const NoticeGet = async queryParameter => {
 async function NoticeGet(queryParameter) {
   try {
@@ -30,22 +30,6 @@ async function NoticeGet(queryParameter) {
     console.log(error);
   }
 }
-
-// Notice 조회(get) 올림차순
-// export const NoticeGet = async queryParameter => {
-// async function NoticeGetUp(queryParameter) {
-//   try {
-//     const response = await Instance.get(`/api/v1/notice`);
-//     // console.log(response.data);
-//     console.log(response.data.noticeList);
-//     console.log(response.data);
-//     const url = response.request.responseURL;
-//     console.log(url);
-//     return response.data.noticeList;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
 
 // Notice 수정(put)
 // export const NoticePut = async () => {
@@ -80,7 +64,6 @@ async function NoticeDelete(noticeId) {
 export const NoticeMethod = {
   NoticePost,
   NoticeGet,
-  // NoticeGetUp,
   NoticePut,
   NoticeDelete,
 };

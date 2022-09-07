@@ -6,8 +6,9 @@ const Header = props => {
   const [search, setSearch] = useState("");
 
   const onChange = e => {
-    e.preventDefault();
     setSearch(e.target.value);
+    console.log(e.target.value);
+    e.preventDefault();
   };
   const onReset = () => {
     setSearch("");
@@ -18,7 +19,7 @@ const Header = props => {
     if (search === null || search === "") {
       console.log("no");
     } else {
-      console.log("yes");
+      console.log(search);
     }
   };
 
@@ -38,7 +39,15 @@ const Header = props => {
               value={search}
             ></input>
             <div>
-              <button className="close" onClick={onReset} />
+              <button
+                className="close"
+                onClick={onReset}
+                style={
+                  search !== ""
+                    ? { display: "inline-block" }
+                    : { display: "none" }
+                }
+              />
               <button className="search" onClick={onSearch} />
             </div>
           </div>

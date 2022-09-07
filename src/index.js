@@ -5,6 +5,8 @@ import App from "./App";
 import { store } from "./features/store";
 import "./index.css";
 
+// 추가
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>

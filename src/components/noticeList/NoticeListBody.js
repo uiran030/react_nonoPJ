@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./NoticeListBody.css";
 import { NoticeMethod } from "../../apis/NoitceMethod";
 import { useHistory } from "react-router-dom";
@@ -21,9 +21,6 @@ const NoticeListBody = params => {
   const [display, setDisplay] = useState(false);
   const history = useHistory();
 
-  // 무한 스크롤
-  // const [ref, inView] = useInView();
-
   const onClickButton = () => {
     setIsOpen(true);
   };
@@ -34,6 +31,16 @@ const NoticeListBody = params => {
   const handleContent = event => {
     setContent(event.target.value);
   };
+
+  useEffect(() => {
+    const get = NoticeMethod.NoticeGet();
+    const getData = () => {
+      get.then(data => {
+        setList(data);
+      });
+    };
+    getData();
+  }, []);
 
   function onClickList(index) {
     const listIndex = list[index];
@@ -54,21 +61,11 @@ const NoticeListBody = params => {
 
     setNoticeId(listIndex.noticeId);
     console.log(listIndex.noticeId);
+    console.log(noticeId);
     setTitle(listIndex.title);
     setContent(listIndex.content);
-    // onClickButton();
     history.push("/noticeList");
   }
-
-  useEffect(() => {
-    const get = NoticeMethod.NoticeGet();
-    const getData = () => {
-      get.then(data => {
-        setList(data);
-      });
-    };
-    getData();
-  }, []);
 
   const noticePut = (title, content, noticeId) => {
     NoticeMethod.NoticePut(title, content, noticeId);
@@ -88,42 +85,6 @@ const NoticeListBody = params => {
     // (history.push로는 작동되지않아 다른 방법으로 진행함)
     window.location.replace("/noticeList");
   };
-
-  // 무한 스크롤작업
-  const [page, setPage] = useState(0);
-  const bottomObserver = useRef(null);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting) {
-          const { page, totalPages, limit } = params.pageData;
-          if (totalPages < limit * (page - 1)) {
-            return;
-          }
-          params.setList({ page: page + 1 });
-        }
-      },
-      { threshold: 0.25, rootMargin: "0px" }
-    );
-    bottomObserver.current = observer;
-  }, []);
-  // const [items, setItems] = useState([]);
-
-  // const getItems = useCallback(async () => {
-  //   await Instance.get(`/api/v1/notice?page=${page}`).then(res => {
-  //     setItems(prevState => [prevState, res]);
-  //   });
-  // }, [page]);
-
-  // useEffect(() => {
-  //   getItems();
-  // }, [getItems]);
-
-  // useEffect(() => {
-  //   if (inView) {
-  //     setPage(prevState => prevState + 1);
-  //   }
-  // }, [inView]);
 
   function editDown() {
     console.log("수정날짜 내림차순");

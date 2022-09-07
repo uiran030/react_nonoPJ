@@ -26,7 +26,12 @@ function MainText() {
       });
     };
     getData();
-  }, []);
+  }, [lastId]);
+  // useEffect(() => {}, [A])
+  // A값이 변경되는 경우에 render라는 의미이므로
+  // 새로운 값 입력시 inputData에 title, content, focus 값이 저장되면서
+  // id가 id: state.lastId + 1되므로 lastId 값이 변경될 때 render되도록 함.
+  console.log(list);
 
   // notice modal open
   const onClickButton1 = () => {
@@ -36,8 +41,6 @@ function MainText() {
   const onClickBody = () => {
     setIsOpen2(true);
   };
-  // console.log(list[0].createdAt);
-  // console.log(list[0].updatedAt);
 
   return (
     <div>

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import Modal from "./Modal";
 import { AiOutlineClose } from "react-icons/ai";
 import { save } from "../../../features/BoardSlice";
-import { useHistory } from "react-router-dom";
 import "./NoticeModal.css";
 import NoticeMethod from "../../../apis/NoitceMethod";
 
@@ -21,14 +20,21 @@ const NoticeModal = ({ onClose }) => {
   const dispatch = useDispatch();
   // const history = useHistory();
 
+  const handleTitle = event => {
+    setTitle(event.target.value);
+  };
+  const handleContent = event => {
+    setContent(event.target.value);
+  };
+
   const onSave = e => {
     if (title === "") {
-      // alert("title 비어있음");
+      alert("title 비어있음");
       // 토스트창 구현하기
-      toast.error(`title가 비어있습니다`, {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3000,
-      });
+      // toast.error(`title가 비어있습니다`, {
+      //   position: toast.POSITION.TOP_CENTER,
+      //   autoClose: 3000,
+      // });
       title.focus();
       e.preventDefault();
     }
@@ -43,13 +49,12 @@ const NoticeModal = ({ onClose }) => {
         title: title,
         content: content,
         focus: focus,
-        createdAt: createdAt,
-        updatedAt: updatedAt,
       };
       // dispatch = action을 찾고 만약 action이 존재하면 status를 action으로 바꿈
       // 메서드를 호출하는 것
       dispatch(save(inputData));
       NoticeMethod.NoticePost(title, content, focus, createdAt, updatedAt);
+      console.log(inputData);
       setTitle("");
       setContent("");
       setFocus("");
@@ -58,13 +63,6 @@ const NoticeModal = ({ onClose }) => {
       // history.push("/");
       onClose();
     }
-  };
-
-  const handleTitle = event => {
-    setTitle(event.target.value);
-  };
-  const handleContent = event => {
-    setContent(event.target.value);
   };
 
   const changeHandler = (checked, id) => {
@@ -90,6 +88,7 @@ const NoticeModal = ({ onClose }) => {
                 placeholder="제목을 입력하세요"
                 name="title"
                 onChange={handleTitle}
+                // value={title}
               />
               <button className="close" onClick={onClose}>
                 <AiOutlineClose />

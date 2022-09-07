@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import { AiOutlineClose } from "react-icons/ai";
 import "./NoticeModal.css";
@@ -7,8 +7,7 @@ import { NoticeMethod } from "../../../apis/NoitceMethod";
 import { useDispatch } from "react-redux";
 import { edit } from "../../../features/BoardSlice";
 
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 
 const NoticeEditModal = ({ onCloseModal }) => {
   // const [checkedButtons, setCheckedButtons] = useState([]);
@@ -33,6 +32,8 @@ const NoticeEditModal = ({ onCloseModal }) => {
   let id = null;
 
   const dispatch = useDispatch();
+
+  // 토스트창
 
   // 수정버튼 누르고나면 작업
   const [disable, setDisable] = useState(true);
@@ -89,29 +90,19 @@ const NoticeEditModal = ({ onCloseModal }) => {
     });
   }
 
-  // 수정하기 버튼 클릭 시 수정할 수 있게 바꾸기
+  // 수정하기 버튼 클릭 시 수정할 수 있게 바꾸기 (input에 disable 풀어줌)
   const changeData = e => {
     console.log("수정하기 버튼 클릭함");
     setDisable(false);
   };
+
   const saveChange = e => {
     if (title === "") {
-      //   // 토스트창 구현하기
-      //   toast.error(`제목을 입력해주세요.`, {
-      //     position: toast.POSITION.TOP_CENTER,
-      //     autoClose: 2000,
-      //     hideProgressBar: true,
-      //     closeOnClick: true,
-      //   });
+      toast("제목을 입력해주세요.");
       e.preventDefault();
     }
     if (content === "") {
-      //   // 토스트창 구현하기
-      //   toast.error(`내용을 입력해주세요.`, {
-      //     position: toast.POSITION.TOP_CENTER,
-      //     autoClose: 2000,
-      //     hideProgressBar: true,
-      //   });
+      toast("내용을 입력해주세요.");
       e.preventDefault();
     }
     if (title !== "" && content !== "") {
@@ -124,7 +115,6 @@ const NoticeEditModal = ({ onCloseModal }) => {
       setFocus("");
       setNoticeId("");
       onCloseModal();
-      window.location.replace("/");
     }
   };
 
@@ -138,97 +128,94 @@ const NoticeEditModal = ({ onCloseModal }) => {
     window.location.replace("/");
   };
 
-  // textarea focus주기
-  // const textElement = useRef(null);
-  // useEffect(() => {
-  //   if (textElement.current) {
-  //     textElement.current.focus();
-  //   }
-  // }, []);
-
   return (
-    <Modal onClose={onCloseModal}>
-      <div className="modal">
-        <section>
-          <form>
-            <header>
-              <input
-                name="title"
-                onChange={handleTitle}
-                // value 속성이 변하는 값일 때 defaultValue를 사용함
-                // react에서 value 값이 read 전용이라 수정이 안되므로 defaultValue를 사용
-                defaultValue={title}
-                disabled={disable}
-              />
-              <button className="close" onClick={onCloseModal}>
-                <AiOutlineClose />
-              </button>
-            </header>
-            {/* header,body - figma 이해 잘못했던 부분 
+    <div className="for_toast">
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={true}
+        style={{ zIndex: "999999" }}
+      />
+      <Modal onClose={onCloseModal}>
+        <div className="modal">
+          <section>
+            <form>
+              <header>
+                <input
+                  name="title"
+                  onChange={handleTitle}
+                  // value 속성이 변하는 값일 때 defaultValue를 사용함
+                  // react에서 value 값이 read 전용이라 수정이 안되므로 defaultValue를 사용
+                  defaultValue={title}
+                  disabled={disable}
+                />
+                <button className="close" onClick={onCloseModal}>
+                  <AiOutlineClose />
+                </button>
+              </header>
+              {/* header,body - figma 이해 잘못했던 부분 
             (바로 수정가능이 아니라 우선 값만 불러오기) */}
-            <main>
-              <textarea
-                className="bR8"
-                onChange={handleContent}
-                name="content"
-                defaultValue={content}
-                disabled={disable}
-                // autoFocus
-              />
-            </main>
-            <footer>
-              <div
-                className="checking"
-                style={disable === false ? { display: "none" } : null}
-              >
-                <input type="checkbox" id="check" checked={focus} />
-                {/* {disable === false && (
-                  <input
-                    type="checkbox"
-                    id="check"
-                    onChange={e => {
-                      changeHandler(e.currentTarget.checked, "check");
-                    }}
-                    checked={focus}
-                  />
-                )} */}
-                <label id="check" htmlFor="check"></label>
-                <p className="mL10 fs14">주요 공지사항</p>
-              </div>
-              {disable === true ? (
-                <div className="btn">
-                  <button
-                    className="btnError error"
-                    type="button"
-                    onClick={delling}
-                  >
-                    공지사항 삭제
-                  </button>
-                  <button
-                    className="btnClose bR8"
-                    type="button"
-                    onClick={changeData}
-                  >
-                    수정하기
-                  </button>
+              <main>
+                <textarea
+                  className="bR8"
+                  onChange={handleContent}
+                  name="content"
+                  defaultValue={content}
+                  disabled={disable}
+                  // autoFocus
+                />
+              </main>
+              <footer>
+                <div className="checking">
+                  {disable === false ? (
+                    <input
+                      type="checkbox"
+                      id="check"
+                      onChange={e => {
+                        changeHandler(e.currentTarget.checked, "check");
+                      }}
+                      checked={focus}
+                    />
+                  ) : (
+                    <input type="checkbox" id="check" checked={focus} />
+                  )}
+                  <label id="check" htmlFor="check"></label>
+                  <p className="mL10 fs14">주요 공지사항</p>
                 </div>
-              ) : (
-                <div className="btn">
-                  <button
-                    className="btnClose bR8"
-                    type="button"
-                    onClick={saveChange}
-                  >
-                    저장하기
-                  </button>
-                </div>
-              )}
-            </footer>
-          </form>
-        </section>
-      </div>
-      <ToastContainer />
-    </Modal>
+                {disable === true ? (
+                  <div className="btn">
+                    <button
+                      className="btnError error"
+                      type="button"
+                      onClick={delling}
+                    >
+                      공지사항 삭제
+                    </button>
+                    <button
+                      className="btnClose bR8"
+                      type="button"
+                      onClick={changeData}
+                    >
+                      수정하기
+                    </button>
+                  </div>
+                ) : (
+                  <div className="btn">
+                    <button
+                      className="btnClose bR8"
+                      type="button"
+                      onClick={saveChange}
+                    >
+                      저장하기
+                    </button>
+                  </div>
+                )}
+              </footer>
+            </form>
+          </section>
+        </div>
+      </Modal>
+    </div>
   );
 };
 

@@ -14,10 +14,10 @@ const Toastify = ({ text }) => {
 
   // 버튼 클릭시 toast 함수 실행
   return (
-    <div>
+    <Toastify className="toastBody">
       {/* <button onClick={notify}>toa</button> */}
-      <ToastContainer />
-    </div>
+      <p>오류오루</p>
+    </Toastify>
   );
 };
 
