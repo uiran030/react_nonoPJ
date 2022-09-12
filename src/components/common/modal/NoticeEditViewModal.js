@@ -12,7 +12,7 @@ import { toast, ToastContainer } from "react-toastify";
 const NoticeEditModal = ({ onCloseModal }) => {
   // const [checkedButtons, setCheckedButtons] = useState([]);
   const inputData = useSelector(state => state.board.inputData);
-  const [list, setList] = useState([]);
+  const [recentList, setRecentList] = useState([]);
 
   // onChange 핸들러 데이터
   const [title, setTitle] = useState(inputData[inputData.length - 1].title);
@@ -32,8 +32,6 @@ const NoticeEditModal = ({ onCloseModal }) => {
   let id = null;
 
   const dispatch = useDispatch();
-
-  // 토스트창
 
   // 수정버튼 누르고나면 작업
   const [disable, setDisable] = useState(true);
@@ -59,21 +57,27 @@ const NoticeEditModal = ({ onCloseModal }) => {
   };
 
   useEffect(() => {
-    const get = NoticeMethod.NoticeGet();
+    const get = NoticeMethod.NoticeGetRecent();
     const getData = () => {
       get.then(data => {
-        setList(data[0]);
-        id = data[0].noticeId;
-        console.log(id);
-        setFocus(data[0].focus);
-        setNoticeId(id);
+        setRecentList(data);
+        // id = data.noticeId;
+        // console.log(id);
+        console.log(data);
+        console.log(data.title);
+        console.log(data.noticeId);
+        setTitle(data.title);
+        setContent(data.content);
+        setNoticeId(data.noticeId);
+        // setFocus(data.focus);
+        // setNoticeId(id);
 
-        setEditData({
-          title: title,
-          content: content,
-          focus: focus,
-          noticeId: noticeId,
-        });
+        // setEditData({
+        //   title: title,
+        //   content: content,
+        //   focus: focus,
+        //   noticeId: noticeId,
+        // });
       });
     };
     getData();
@@ -106,15 +110,16 @@ const NoticeEditModal = ({ onCloseModal }) => {
       e.preventDefault();
     }
     if (title !== "" && content !== "") {
+      NoticeMethod.NoticePut(title, content, focus, noticeId);
       updateNotice(title, content, focus);
       // setEditData(updateNotice(title, content, onFocused, noticeId));
       dispatch(edit(editData));
-      NoticeMethod.NoticePut(title, content, focus, noticeId);
       setTitle("");
       setContent("");
       setFocus("");
       setNoticeId("");
       onCloseModal();
+      window.location.replace("/");
     }
   };
 
@@ -162,7 +167,7 @@ const NoticeEditModal = ({ onCloseModal }) => {
                   name="content"
                   defaultValue={content}
                   disabled={disable}
-                  // autoFocus
+                  style={disable === true ? { border: "none" } : null}
                 />
               </main>
               <footer>

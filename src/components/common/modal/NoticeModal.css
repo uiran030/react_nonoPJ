@@ -28,7 +28,7 @@
   width: 100%;
   height: 100%;
   padding: 10px;
-  border: none;
+  border: 1px solid #b0becc;
   resize: none;
   background-color: white;
 }

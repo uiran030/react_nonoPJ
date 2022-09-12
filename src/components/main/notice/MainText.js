@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-// import Toastify from '../../common/toast/Toastify';
-// import ModalButton from "../../common/modal/ModalButton";
 import "./MainText.css";
 import { Link } from "react-router-dom";
 import { BsCircleFill } from "react-icons/bs";
@@ -10,28 +8,34 @@ import { useSelector } from "react-redux";
 import NoticeModal from "../../common/modal/NoticeModal";
 import NoticeEditViewModal from "../../common/modal/NoticeEditViewModal";
 import NoticeMethod from "../../../apis/NoitceMethod";
+import { useDispatch } from "react-redux";
+import { select } from "../../../features/BoardSlice";
+// import storage from "lib/storage";
 
 function MainText() {
-  const [list, setList] = useState([]);
+  const [recentList, setRecentList] = useState([]);
   const inputData = useSelector(state => state.board.inputData);
   const lastId = useSelector(state => state.board.lastId);
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    const get = NoticeMethod.NoticeGet();
+    const get = NoticeMethod.NoticeGetRecent();
     const getData = () => {
       get.then(data => {
-        setList(data);
+        setRecentList(data);
+        dispatch(select(lastId));
       });
     };
     getData();
-  }, [lastId]);
+  }, [isOpen1]);
   // useEffect(() => {}, [A])
   // A값이 변경되는 경우에 render라는 의미이므로
   // 새로운 값 입력시 inputData에 title, content, focus 값이 저장되면서
   // id가 id: state.lastId + 1되므로 lastId 값이 변경될 때 render되도록 함.
-  console.log(list);
+  // console.log(recentList);
 
   // notice modal open
   const onClickButton1 = () => {
@@ -44,7 +48,7 @@ function MainText() {
 
   return (
     <div>
-      {lastId !== 0 && (
+      {recentList.length !== 0 && (
         <ul className="mainList">
           <li>
             <div className="topmenu">
@@ -66,23 +70,17 @@ function MainText() {
               onClick={onClickBody}
             >
               <div className="noticeTop">
-                <h3>{inputData[inputData.length - 1].title}</h3>
-                {inputData[inputData.length - 1].focus === true ? (
+                <h3>{recentList.title}</h3>
+                {recentList.focus === true ? (
                   <BsCircleFill className="primaryDark" />
                 ) : null}
               </div>
               <div className="noticeInfo">
-                <p className="fs10 info-content">
-                  {inputData[inputData.length - 1].content}
-                </p>
+                <p className="fs10 info-content">{recentList.content}</p>
                 <div className="info-detail">
                   {/*  처음엔 createAt이 , 수정 시 updateAt이 나오게 조건문 작성하기! */}
-                  {/* {list[0].createdAt === list[0].updatedAt ? ( */}
-                  <p className="fs10">{list[0].createdAt}</p>
-                  {/* ) : (
-                    <p className="fs10">{list[0].updatedAt}</p>
-                   )} */}
-                  <p className="fs10 textColor">{list[0].writer}</p>
+                  <p className="fs10">{recentList.createdAt}</p>
+                  <p className="fs10 textColor">{recentList.writer}</p>
                 </div>
               </div>
             </div>
@@ -96,7 +94,7 @@ function MainText() {
           </li>
         </ul>
       )}
-      {lastId == 0 && (
+      {recentList.length == 0 && (
         <div className="listhome">
           <div className="mainBot">
             <ul className="mainList">

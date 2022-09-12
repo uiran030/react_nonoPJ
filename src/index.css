@@ -1,7 +1,12 @@
+@font-face {
+  src: url(./assets/font/Noto_Sans_KR/NotoSansKR-Regular.otf);
+  font-family: "noto_sans";
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "noto_sans";
 }
 ul {
   list-style: none;

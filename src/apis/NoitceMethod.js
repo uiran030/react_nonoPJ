@@ -1,5 +1,15 @@
 import Instance from "./NoticeInstance";
 
+async function NoticeGetRecent() {
+  try {
+    const response = await Instance.get(`/api/v1/notice/recent`);
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // Notice 생성(post)
 async function NoticePost(title, content, focus, createdAt, updatedAt, writer) {
   try {
@@ -12,7 +22,8 @@ async function NoticePost(title, content, focus, createdAt, updatedAt, writer) {
       writer: writer,
     });
     console.log(response.data);
-    return response.data.noticeList;
+    // console.log(response.data.noticeList);
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -34,6 +45,7 @@ async function NoticeGet(queryParameter) {
 // Notice 수정(put)
 // export const NoticePut = async () => {
 async function NoticePut(title, content, focus, noticeId) {
+  console.log(noticeId);
   try {
     const response = await Instance.put(`/api/v1/notice/${noticeId}`, {
       title: title,
@@ -66,6 +78,7 @@ export const NoticeMethod = {
   NoticeGet,
   NoticePut,
   NoticeDelete,
+  NoticeGetRecent,
 };
 
 export default NoticeMethod;

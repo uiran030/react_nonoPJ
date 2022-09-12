@@ -15,6 +15,7 @@ const NoticeListBody = params => {
   const selectRowData = useSelector(state => state.board.selectRowData);
   const [title, setTitle] = useState(selectRowData.title);
   const [content, setContent] = useState(selectRowData.content);
+  const [focus, setFocus] = useState(selectRowData.focus);
   const [noticeId, setNoticeId] = useState("");
 
   const [isOpen, setIsOpen] = useState(false);
@@ -67,15 +68,17 @@ const NoticeListBody = params => {
     history.push("/noticeList");
   }
 
-  const noticePut = (title, content, noticeId) => {
-    NoticeMethod.NoticePut(title, content, noticeId);
+  const noticePut = (title, content, focus, noticeId) => {
+    NoticeMethod.NoticePut(title, content, focus, noticeId);
   };
   const noticeDel = noticeId => {
     NoticeMethod.NoticeDelete(noticeId);
   };
 
   const putting = e => {
-    noticePut(title, content, noticeId);
+    console.log(noticeId);
+    noticePut(title, content, focus, noticeId);
+
     // 화면 새로고침되게 설정
     window.location.replace("/noticeList");
   };
