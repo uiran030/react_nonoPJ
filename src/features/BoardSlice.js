@@ -2,12 +2,15 @@ import { createSlice, current } from "@reduxjs/toolkit";
 
 // 초기 상태를 정의하는 것
 const initialState = {
-  lastId: 0,
+  lastId: 0, //noticeId..
   inputData: [
     {
       id: "",
       title: "",
       content: "",
+      createdAt: "",
+      updatedAt: "",
+      writer: "",
     },
   ],
   selectRowData: {},
@@ -16,8 +19,9 @@ const initialState = {
 // Slice 생성
 export const boardSlice = createSlice({
   name: "board",
-  initialState,
+  initialState, //initialState에 dispatch 하는 것 (noticeModal onSave)
   reducers: {
+    // save, ~ ~ ~ ~ ~4가지가 actions
     save: (state, action) => {
       console.log(action);
       console.log(current(state));
@@ -36,6 +40,7 @@ export const boardSlice = createSlice({
     },
 
     select: (state, action) => {
+      //state = initialState
       // console.log(action);
       // state에 있는 selectRowData는 id값을 받아오는 action.payload와
       // id가 값으면 inputData의 첫번째 값을 반환해 저장함.

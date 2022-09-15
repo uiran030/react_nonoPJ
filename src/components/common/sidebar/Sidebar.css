@@ -165,3 +165,7 @@
     }
     .liP{display:none;}
 } */
+
+#selected {
+  color: red;
+}

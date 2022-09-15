@@ -1,9 +1,20 @@
 import Instance from "./NoticeInstance";
 
+async function NoticeGetIndex(noticeId) {
+  try {
+    const response = await Instance.get(`/api/v1/notice/${noticeId}`, {
+      noticeId: noticeId,
+    });
+    console.log(response.data.noticeList);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
 async function NoticeGetRecent() {
   try {
     const response = await Instance.get(`/api/v1/notice/recent`);
-    // console.log(response.data);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -13,6 +24,7 @@ async function NoticeGetRecent() {
 // Notice 생성(post)
 async function NoticePost(title, content, focus, createdAt, updatedAt, writer) {
   try {
+    // await = 값을 받을때까지 대기
     const response = await Instance.post("/api/v1/notice", {
       title: title,
       content: content,
@@ -22,20 +34,21 @@ async function NoticePost(title, content, focus, createdAt, updatedAt, writer) {
       writer: writer,
     });
     console.log(response.data);
-    // console.log(response.data.noticeList);
     return response.data;
   } catch (error) {
     console.log(error);
   }
 }
 
+// try & catch
+// try{} -> 중괄호 안에 있는 내용 실행 시키라는 뜻 (어떤에러든 발생할수있음)
+// catch(error){} -> 에러발생 시 동작시켜달라는 뜻
+
 // Notice 조회(get)
 // export const NoticeGet = async queryParameter => {
 async function NoticeGet(queryParameter) {
   try {
     const response = await Instance.get(`/api/v1/notice`);
-    // console.log(response.data.noticeList);
-    // console.log(response.data);
     return response.data.noticeList;
   } catch (error) {
     console.log(error);
@@ -43,7 +56,6 @@ async function NoticeGet(queryParameter) {
 }
 
 // Notice 수정(put)
-// export const NoticePut = async () => {
 async function NoticePut(title, content, focus, noticeId) {
   console.log(noticeId);
   try {
@@ -61,10 +73,9 @@ async function NoticePut(title, content, focus, noticeId) {
 }
 
 // Notice 삭제(delete)
-// export const NoticeDelete = async () => {
 async function NoticeDelete(noticeId) {
   try {
-    const response = await Instance.delete(`/api/v1/notice/${noticeId}`, {});
+    const response = await Instance.delete(`/api/v1/notice/${noticeId}`);
     console.log(response.data);
     return response.data.noticeList;
   } catch (error) {
@@ -78,6 +89,7 @@ export const NoticeMethod = {
   NoticeGet,
   NoticePut,
   NoticeDelete,
+  NoticeGetIndex,
   NoticeGetRecent,
 };
 

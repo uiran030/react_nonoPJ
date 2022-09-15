@@ -76,13 +76,17 @@
   align-items: flex-end;
 }
 .noticeListBody .choice-notice .content {
-  border: 1px solid black;
   margin-top: 10px;
   min-height: 480px;
   width: 100%;
 }
 .noticeListBody .choice-notice .viewList {
   justify-content: flex-start;
+}
+.noticeListBody .choice-notice .viewList input {
+  font-weight: 700;
+}
+.noticeListBody .choice-notice .viewList textarea {
 }
 .noticeListBody .choice-notice .viewList .btn {
   display: flex;

@@ -1,23 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
 import { CgHome } from "react-icons/cg";
 import { BiBox, BiFile } from "react-icons/bi";
 import { AiOutlineSetting } from "react-icons/ai";
 import logo from "../../../assets/image/logo.png";
+// import $ from "jquery";
 
 const Sidebar = () => {
   const [click, setClick] = useState(0);
-  const [back, setBack] = useState(null);
-  // const [isActive, setIsActive] = useState("false");
+  const [back, setBack] = useState(0);
 
   const tabClickHandler = index => {
     setClick(index);
-    console.log("ddd");
   };
+  console.log(click);
   const tabBackHandler = index => {
     setBack(index);
   };
+  console.log(back);
+
+  //
 
   // const history = useHistory();
 
@@ -81,18 +84,30 @@ const Sidebar = () => {
                 <p className="liP">메인 페이지</p>
               </Link>
               <ul className="depth2">
-                <li className={back === 0 ? "active" : ""}>
-                  <Link to="/" onClick={() => tabBackHandler(0)}>
+                <li
+                  // className="depth2Li"
+                  onClick={() => tabBackHandler(0)}
+                  className={back === 0 ? "active" : ""}
+                >
+                  <Link to="/">
                     <p>홈</p>
                   </Link>
                 </li>
-                <li className={back === 1 ? "active" : ""}>
-                  <Link to="/noticeList" onClick={() => tabBackHandler(1)}>
+                <li
+                  // className="depth2Li"
+                  onClick={() => tabBackHandler(1)}
+                  className={back === 1 ? "active" : ""}
+                >
+                  <Link to="/noticeList">
                     <p>공지사항 목록</p>
                   </Link>
                 </li>
-                <li className={back === 2 ? "active" : ""}>
-                  <Link to="" onClick={() => tabBackHandler(2)}>
+                <li
+                  // className="depth2Li"
+                  onClick={() => tabBackHandler(2)}
+                  className={back === 2 ? "active" : ""}
+                >
+                  <Link to="">
                     <p>입&#47;출고 현황</p>
                   </Link>
                 </li>

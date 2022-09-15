@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import Modal from "./Modal";
 import { AiOutlineClose } from "react-icons/ai";
@@ -6,9 +6,9 @@ import { save } from "../../../features/BoardSlice";
 import "./NoticeModal.css";
 import NoticeMethod from "../../../apis/NoitceMethod";
 
-// import Toastify from "../toast/Toastify";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NoticeEditModal from "./NoticeEditViewModal";
 
 const NoticeModal = ({ onClose }) => {
   const [checkedButtons, setCheckedButtons] = useState([]);
@@ -37,19 +37,29 @@ const NoticeModal = ({ onClose }) => {
       e.preventDefault();
     }
     if (title !== "" && content !== "") {
-      NoticeMethod.NoticePost(title, content, focus, createdAt, updatedAt);
-      setTitle(title);
-      setContent(content);
-      setFocus(focus);
-      setCreatedAt(createdAt);
-      setUpdatedAt(updatedAt);
+      const newData = NoticeMethod.NoticePost(
+        title,
+        content,
+        focus,
+        createdAt,
+        updatedAt
+      );
+      // setTitle(title);
+      // setContent(content);
+      // setFocus(focus);
+      // setCreatedAt(createdAt);
+      // setUpdatedAt(updatedAt);   //error
       // 결과 받는 동작 만들기
       // 결과값을 inputData에 넣기
 
       const inputData = {
-        title: title,
-        content: content,
-        focus: focus,
+        title: newData.title,
+        content: newData.content,
+        focus: newData.focus,
+        id: newData.noticeId,
+        createdAt: newData.createdAt,
+        updatedAt: newData.updatedAt,
+        writer: newData.writer,
       };
       // dispatch = action을 찾고 만약 action이 존재하면 status를 action으로 바꿈
       // 메서드를 호출하는 것
@@ -66,23 +76,6 @@ const NoticeModal = ({ onClose }) => {
     }
   };
 
-  const [recentList, setRecentList] = useState([]);
-  const [recentId, setRecentId] = useState("");
-  // useEffect(() => {
-  //   const get = NoticeMethod.NoticeGetRecent();
-  //   const getData = () => {
-  //     get.then(data => {
-  //       setRecentList(data);
-  //       // setRecentId(data.noticeId + 1);
-  //       // +1 임시로 test
-  //     });
-  //   };
-  //   getData();
-  // }, []);
-  // console.log(recentId);
-  // 새로운값 등록하고 id값 받아서 save해서 넣기때문에
-  // 가져올 이유가 없음
-
   const changeHandler = (checked, id) => {
     if (checked) {
       setCheckedButtons([...checkedButtons, id]);
@@ -97,12 +90,7 @@ const NoticeModal = ({ onClose }) => {
 
   return (
     <div className="for_toast">
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={true}
-        style={{ zIndex: "999999" }}
-      />
+      <ToastContainer style={{ zIndex: "999999" }} />
       <Modal onClose={onClose}>
         <div className="modal">
           <section>
@@ -145,7 +133,6 @@ const NoticeModal = ({ onClose }) => {
                 </button>
               </footer>
             </form>
-            {/* <ToastContainer /> */}
           </section>
         </div>
       </Modal>

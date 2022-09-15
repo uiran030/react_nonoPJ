@@ -13,9 +13,10 @@ const NoticeListBody = params => {
   const [changedate, setChangeDate] = useState([]);
 
   const selectRowData = useSelector(state => state.board.selectRowData);
-  const [title, setTitle] = useState(selectRowData.title);
-  const [content, setContent] = useState(selectRowData.content);
-  const [focus, setFocus] = useState(selectRowData.focus);
+  // console.log(selectRowData);       //빈값
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [focus, setFocus] = useState("");
   const [noticeId, setNoticeId] = useState("");
 
   const [isOpen, setIsOpen] = useState(false);

@@ -69,7 +69,7 @@ const NoticeEditModal = ({ onCloseModal }) => {
         setTitle(data.title);
         setContent(data.content);
         setNoticeId(data.noticeId);
-        // setFocus(data.focus);
+        setFocus(data.focus);
         // setNoticeId(id);
 
         // setEditData({
@@ -182,7 +182,12 @@ const NoticeEditModal = ({ onCloseModal }) => {
                       checked={focus}
                     />
                   ) : (
-                    <input type="checkbox" id="check" checked={focus} />
+                    <input
+                      type="checkbox"
+                      id="check"
+                      checked={focus}
+                      disabled={disable}
+                    />
                   )}
                   <label id="check" htmlFor="check"></label>
                   <p className="mL10 fs14">주요 공지사항</p>
