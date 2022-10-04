@@ -40,6 +40,7 @@ export const boardSlice = createSlice({
     },
 
     select: (state, action) => {
+      console.log(action);
       //state = initialState
       // console.log(action);
       // state에 있는 selectRowData는 id값을 받아오는 action.payload와
@@ -48,7 +49,6 @@ export const boardSlice = createSlice({
       state.selectRowData = state.inputData.find(
         row => row.id === action.payload
       );
-      // console.log(state.selectRowData);
     },
 
     edit: (state, action) => {

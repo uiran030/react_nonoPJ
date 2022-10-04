@@ -5,55 +5,39 @@ import { CgHome } from "react-icons/cg";
 import { BiBox, BiFile } from "react-icons/bi";
 import { AiOutlineSetting } from "react-icons/ai";
 import logo from "../../../assets/image/logo.png";
+import { data } from "jquery";
 // import $ from "jquery";
 
 const Sidebar = () => {
   const [click, setClick] = useState(0);
   const [back, setBack] = useState(0);
 
+  const data = [
+    {
+      page: "/",
+      title: "홈",
+    },
+    { page: "/noticeList", title: "공지사항 목록" },
+    { page: "/", title: "입/출고 현황" },
+  ];
+  const [btnActive, setBtnActive] = useState(2);
+  // 값 셋팅.. / 페이지별로 이벤트 발생시켜서 숫자넣게하는 작업 필요함.
+
+  const toggleActive = e => {
+    setBtnActive(prev => {
+      return e.target.value;
+    });
+  };
+
   const tabClickHandler = index => {
     setClick(index);
   };
-  console.log(click);
-  const tabBackHandler = index => {
-    setBack(index);
-  };
-  console.log(back);
+  // console.log(click);
 
-  //
-
-  // const history = useHistory();
-
-  // const Menu_List = [
-  //   {
-  //     page: "/",
-  //     depth2page: ["/", "/noticeList", "/"],
-  //     icon: <CgHome className="emo" />,
-  //     title: "메인 페이지",
-  //     list: ["홈", "공지사항 목록", `입/출고 현황`],
-  //   },
-  //   {
-  //     icon: <BiBox className="emo" />,
-  //     title: "물품 관리",
-  //     list: ["물품 목록", "새 물품 추가", "물품 상태 관리"],
-  //   },
-  //   {
-  //     icon: <BiFile className="emo" />,
-  //     title: "문서 관리",
-  //     list: ["1", "2", "3"],
-  //   },
-  //   {
-  //     icon: <AiOutlineSetting className="emo" />,
-  //     title: "관리자 설정",
-  //     list: ["1", "2", "3"],
-  //   },
-  // ];
-
-  // const [activeIndex, setActiveIndex] = useState(0);
-  // const onClick = idx => {
-  //   setActiveIndex(idx);
-  //   console.log(idx);
+  // const tabBackHandler = index => {
+  //   setBack(index);
   // };
+  // console.log(back);
 
   return (
     <div className="sidebar">
@@ -84,33 +68,49 @@ const Sidebar = () => {
                 <p className="liP">메인 페이지</p>
               </Link>
               <ul className="depth2">
-                <li
-                  // className="depth2Li"
-                  onClick={() => tabBackHandler(0)}
-                  className={back === 0 ? "active" : ""}
+                {data.map((item, index) => {
+                  return (
+                    <div>
+                      <Link
+                        to={item.page}
+                        className={"btn" + (index == btnActive ? "active" : "")}
+                      >
+                        <li value={index} onClick={toggleActive}>
+                          {item.title}
+                        </li>
+                      </Link>
+                    </div>
+                  );
+                })}
+                {/* <li
+                  className="depth2Li"
+                  // onClick={() => tabBackHandler(0)}
+                  // onClick={handleClick}
+                  // style={{ color: "#1f6de2" }}
+                  // className={back === 0 ? "active" : ""}
                 >
                   <Link to="/">
                     <p>홈</p>
                   </Link>
                 </li>
                 <li
-                  // className="depth2Li"
-                  onClick={() => tabBackHandler(1)}
-                  className={back === 1 ? "active" : ""}
+                  className="depth2Li"
+                  // className={back === 1 ? "active" : ""}
                 >
                   <Link to="/noticeList">
                     <p>공지사항 목록</p>
                   </Link>
                 </li>
                 <li
-                  // className="depth2Li"
-                  onClick={() => tabBackHandler(2)}
-                  className={back === 2 ? "active" : ""}
+                  className="depth2Li"
+                  // className={back === 2 ? "active" : ""}
+                  // onChange={handleChangeTextColor}
+                  // style={{ color: textColor }}
                 >
                   <Link to="">
                     <p>입&#47;출고 현황</p>
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </li>
             <li

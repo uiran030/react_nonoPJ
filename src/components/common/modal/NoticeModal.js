@@ -8,7 +8,6 @@ import NoticeMethod from "../../../apis/NoitceMethod";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import NoticeEditModal from "./NoticeEditViewModal";
 
 const NoticeModal = ({ onClose }) => {
   const [checkedButtons, setCheckedButtons] = useState([]);
@@ -44,11 +43,6 @@ const NoticeModal = ({ onClose }) => {
         createdAt,
         updatedAt
       );
-      // setTitle(title);
-      // setContent(content);
-      // setFocus(focus);
-      // setCreatedAt(createdAt);
-      // setUpdatedAt(updatedAt);   //error
       // 결과 받는 동작 만들기
       // 결과값을 inputData에 넣기
 
@@ -70,9 +64,8 @@ const NoticeModal = ({ onClose }) => {
       setFocus("");
       setCreatedAt("");
       setUpdatedAt("");
-      // history.push("/");
       onClose();
-      // window.location.replace("/");
+      window.location.reload();
     }
   };
 

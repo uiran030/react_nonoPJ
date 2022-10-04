@@ -6,7 +6,7 @@ import "./Modal.css";
 const Modal = ({ onClose, children }) => {
   const modalRef = useRef(null);
   const handleClose = () => {
-    onClose?.();
+    // onClose?.();
   };
 
   useOutSideClick(modalRef, handleClose);

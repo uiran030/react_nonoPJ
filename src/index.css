@@ -38,7 +38,7 @@ textarea {
   border-radius: 8px;
 }
 
-.texthint {
+.textHint {
   color: #7a7a7d;
 }
 .primary,
@@ -71,6 +71,9 @@ textarea {
   margin-left: 280px;
 }
 
+.fs12 {
+  font-size: 12px;
+}
 .fs14 {
   font-size: 14px;
 }

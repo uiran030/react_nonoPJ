@@ -121,6 +121,9 @@
 .depth2 li.active {
   color: #1f6de2;
 }
+.depth2 .btnactive {
+  color: #1f6de2;
+}
 .depth2 li:last-child {
   border-radius: 0 0 8px 8px;
 }

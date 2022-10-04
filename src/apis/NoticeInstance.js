@@ -2,7 +2,7 @@ import axios from "axios";
 
 // 토큰 값 생성
 const ACCESS_TOKEN =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJST0xFIjoiUk9MRV9BRE1JTiIsImlzcyI6ImJ1ZGR5IiwiZXhwIjoxNjYzNDUwMTc5LCJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYWRtaW4ifQ.ZivuEcc2_FWhB2Hv7B6hDBamrAGKOxT5gTnFdw5ICzs";
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJST0xFIjoiUk9MRV9BRE1JTiIsImlzcyI6ImJ1ZGR5IiwiZXhwIjoxNjY0OTAwNjc3LCJpYXQiOjE2NjQ4OTM0NzcsInVzZXJJZCI6OSwidXNlcm5hbWUiOiJldWlyYW4ifQ.7JeTWQRoOvTYoN4c3sZUZPjrftDvlgiVGflyuFI6A8A";
 
 // axionsInstance 생성
 const Instance = axios.create({

@@ -10,6 +10,7 @@ const Header = props => {
     console.log(e.target.value);
     e.preventDefault();
   };
+
   const onReset = () => {
     setSearch("");
   };
@@ -19,6 +20,7 @@ const Header = props => {
     if (search === null || search === "") {
       console.log("no");
     } else {
+      props.setSearchValue(search);
       console.log(search);
     }
   };

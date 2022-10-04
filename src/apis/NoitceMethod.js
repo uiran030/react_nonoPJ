@@ -2,15 +2,14 @@ import Instance from "./NoticeInstance";
 
 async function NoticeGetIndex(noticeId) {
   try {
-    const response = await Instance.get(`/api/v1/notice/${noticeId}`, {
-      noticeId: noticeId,
-    });
-    console.log(response.data.noticeList);
+    const response = await Instance.get(`/api/v1/notice/${noticeId}`, {});
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
   }
 }
+
 async function NoticeGetRecent() {
   try {
     const response = await Instance.get(`/api/v1/notice/recent`);
@@ -46,14 +45,44 @@ async function NoticePost(title, content, focus, createdAt, updatedAt, writer) {
 
 // Notice 조회(get)
 // export const NoticeGet = async queryParameter => {
-async function NoticeGet(queryParameter) {
+async function NoticeGet(column, order, query) {
   try {
-    const response = await Instance.get(`/api/v1/notice`);
+    const params = {
+      content: true,
+      column: column,
+      order: order,
+      query: query,
+    };
+    const response = await Instance.get("/api/v1/notice", {
+      params,
+    });
+    // console.log(response.data.noticeList);
     return response.data.noticeList;
   } catch (error) {
     console.log(error);
   }
 }
+// async function NoticeGetQuery(searchValue) {
+//   try {
+//     const response = await Instance.get(
+//       `/api/v1/notice?query=${searchValue}`,
+//       {}
+//     );
+//     // console.log(response.data.noticeList);
+//     return response.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+// async function NoticeGetContent() {
+//   try {
+//     const response = await Instance.get(`/api/v1/notice?content=true`, {});
+//     // console.log(response.data.noticeList);
+//     return response.data.noticeList;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 // Notice 수정(put)
 async function NoticePut(title, content, focus, noticeId) {
@@ -91,6 +120,8 @@ export const NoticeMethod = {
   NoticeDelete,
   NoticeGetIndex,
   NoticeGetRecent,
+  // NoticeGetContent,
+  // NoticeGetQuery,
 };
 
 export default NoticeMethod;
