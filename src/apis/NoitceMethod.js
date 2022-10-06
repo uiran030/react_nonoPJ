@@ -52,6 +52,7 @@ async function NoticeGet(column, order, query) {
       column: column,
       order: order,
       query: query,
+      size: 20,
     };
     const response = await Instance.get("/api/v1/notice", {
       params,
@@ -62,27 +63,6 @@ async function NoticeGet(column, order, query) {
     console.log(error);
   }
 }
-// async function NoticeGetQuery(searchValue) {
-//   try {
-//     const response = await Instance.get(
-//       `/api/v1/notice?query=${searchValue}`,
-//       {}
-//     );
-//     // console.log(response.data.noticeList);
-//     return response.data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-// async function NoticeGetContent() {
-//   try {
-//     const response = await Instance.get(`/api/v1/notice?content=true`, {});
-//     // console.log(response.data.noticeList);
-//     return response.data.noticeList;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
 
 // Notice 수정(put)
 async function NoticePut(title, content, focus, noticeId) {

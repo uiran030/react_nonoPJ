@@ -14,7 +14,7 @@ const NoticeListPage = props => {
         setSearchValue={setSearchValue}
       />
       <div className="noticeList row">
-        <Sidebar />
+        <Sidebar index="1" />
         <NoticeListBody searchValue={searchValue} />
       </div>
     </div>

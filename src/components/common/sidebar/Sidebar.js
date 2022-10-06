@@ -5,12 +5,11 @@ import { CgHome } from "react-icons/cg";
 import { BiBox, BiFile } from "react-icons/bi";
 import { AiOutlineSetting } from "react-icons/ai";
 import logo from "../../../assets/image/logo.png";
-import { data } from "jquery";
-// import $ from "jquery";
+import home from "../../../assets/image/Bounding box.png";
 
-const Sidebar = () => {
+const Sidebar = props => {
   const [click, setClick] = useState(0);
-  const [back, setBack] = useState(0);
+  const [btnActive, setBtnActive] = useState(props.index);
 
   const data = [
     {
@@ -20,11 +19,10 @@ const Sidebar = () => {
     { page: "/noticeList", title: "공지사항 목록" },
     { page: "/", title: "입/출고 현황" },
   ];
-  const [btnActive, setBtnActive] = useState(2);
   // 값 셋팅.. / 페이지별로 이벤트 발생시켜서 숫자넣게하는 작업 필요함.
 
   const toggleActive = e => {
-    setBtnActive(prev => {
+    setBtnActive(() => {
       return e.target.value;
     });
   };
@@ -32,12 +30,6 @@ const Sidebar = () => {
   const tabClickHandler = index => {
     setClick(index);
   };
-  // console.log(click);
-
-  // const tabBackHandler = index => {
-  //   setBack(index);
-  // };
-  // console.log(back);
 
   return (
     <div className="sidebar">
@@ -64,7 +56,7 @@ const Sidebar = () => {
               className={click === 0 ? "on" : ""}
             >
               <Link to="/" className="liA">
-                <CgHome className="emo" />
+                <img src={home} />
                 <p className="liP">메인 페이지</p>
               </Link>
               <ul className="depth2">
@@ -82,35 +74,6 @@ const Sidebar = () => {
                     </div>
                   );
                 })}
-                {/* <li
-                  className="depth2Li"
-                  // onClick={() => tabBackHandler(0)}
-                  // onClick={handleClick}
-                  // style={{ color: "#1f6de2" }}
-                  // className={back === 0 ? "active" : ""}
-                >
-                  <Link to="/">
-                    <p>홈</p>
-                  </Link>
-                </li>
-                <li
-                  className="depth2Li"
-                  // className={back === 1 ? "active" : ""}
-                >
-                  <Link to="/noticeList">
-                    <p>공지사항 목록</p>
-                  </Link>
-                </li>
-                <li
-                  className="depth2Li"
-                  // className={back === 2 ? "active" : ""}
-                  // onChange={handleChangeTextColor}
-                  // style={{ color: textColor }}
-                >
-                  <Link to="">
-                    <p>입&#47;출고 현황</p>
-                  </Link>
-                </li> */}
               </ul>
             </li>
             <li
@@ -194,48 +157,6 @@ const Sidebar = () => {
           </ul>
         </div>
       </div>
-      {/* <div className="head">
-        <h1>
-          <Link to="/">
-            <img src={logo} alt="로고"></img>
-            <div className="title">
-              <h2>화성시니어클럽</h2>
-              <p className="fs14">노노유통</p>
-            </div>
-          </Link>
-        </h1>
-        <div className="userinfo">
-          <h3>OOO님(작업)</h3>
-          <Link to="/" className="bR8 primary">
-            마이페이지
-          </Link>
-        </div>
-        <div className="mainNav">
-          <ul className="depth1">
-            {Menu_List.map((item, idx) => {
-              return (
-                <li className={activeIndex !== idx ? "" : "on"}>
-                  <Link
-                    to={item.page}
-                    className="liA"
-                    onClick={() => onClick(idx)}
-                  >
-                    <p className="emo">{item.icon}</p>
-                    <p className="liP">{item.title}</p>
-                  </Link>
-                  <ul className="depth2">
-                    <li>
-                      <Link to={item.depth2page}>
-                        <p>{item.list}</p>
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </div> */}
     </div>
   );
 };

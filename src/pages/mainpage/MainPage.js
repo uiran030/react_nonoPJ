@@ -12,7 +12,7 @@ const MainPage = () => {
         text="환영합니다! 현재 유통 상황을 알 수 있어요!"
       />
       <div className="container row">
-        <Sidebar />
+        <Sidebar index="0" />
         <MainBody />
       </div>
     </div>

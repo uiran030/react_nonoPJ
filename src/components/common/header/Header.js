@@ -15,10 +15,13 @@ const Header = props => {
     setSearch("");
   };
 
+  // 값이 없을 때도 setSearchValue 보여줘야함
+
   const onSearch = e => {
     e.preventDefault();
     if (search === null || search === "") {
       console.log("no");
+      // props.~~
     } else {
       props.setSearchValue(search);
       console.log(search);

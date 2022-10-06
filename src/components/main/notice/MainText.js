@@ -86,18 +86,18 @@ function MainText() {
                   {/* validateDOMNesting(...): <p> cannot appear as a descendant of <p> */}
                   <div className="fs10">
                     {/* ↑ 오류 수정을 위해 div로 변경 */}
-                    {recentData.createdAt === recentData.updatedAt && (
+                    {created === updated && (
                       <p>
-                        {(recentData.createdAt || "")
+                        {(created || "")
                           .split("T")[0]
                           .replace(/-/, "년 ")
                           .replace(/-/, "월 ")
                           .concat("일")}
                       </p>
                     )}
-                    {recentData.createdAt !== recentData.updatedAt && (
+                    {created !== updated && (
                       <p>
-                        {(recentData.updatedAt || "")
+                        {(updated || "")
                           .split("T")[0]
                           .replace(/-/, "년 ")
                           .replace(/-/, "월 ")

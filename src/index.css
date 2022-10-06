@@ -45,6 +45,9 @@ textarea {
 .textColor {
   color: #1f6de2;
 }
+.textDark {
+  color: #2e2e2e;
+}
 .primaryDark {
   color: #0043af;
 }
@@ -87,6 +90,12 @@ textarea {
 .btn-primary {
   border: 5px solid #1f6de2;
 }
+.btnhomeBlue {
+  background-image: url("./assets/image/Bounding\ box.png");
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+}
 .btnadd {
   background-image: url("./assets/image/add.png");
   background-size: cover;
@@ -99,6 +108,7 @@ textarea {
   width: 24px;
   height: 24px;
   border: 1px solid black;
+  padding: 5.25px;
   /* filter: invert(1) brightness(0); */
   /* fill: rgb(150, 0, 60); */
 }
@@ -145,11 +155,27 @@ textarea {
 } */
 
 /* 토스트창 디자인 변경하기 */
-:root {
+/* :root {
   --toastify-color-light: #0043af;
   --toastify-text-color-light: #fff;
+  --toastify-text-weight: 400;
   /* --toastify-icon-color: #fff; */
-  /* --toastify-text-weight: 100; */
-  /* --toastify-toast-min-height: 60px;
-  --toastify-toast-min-width: 420px; */
+/* --toastify-text-weight: 100; */
+/* --toastify-toast-min-height: 60px;
+  --toastify-toast-min-width: 420px; 
+} */
+.Toastify__toast {
+  color: white;
+  background-color: #0043af;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Toastify__toast > button {
+  color: white;
+  opacity: 1;
+  /* display: inline-block;
+  width: 24px;
+  height: 100%; */
 }

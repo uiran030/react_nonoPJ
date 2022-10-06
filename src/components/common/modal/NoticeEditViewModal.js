@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import { AiOutlineClose } from "react-icons/ai";
 import "./NoticeModal.css";
-import { useSelector } from "react-redux";
 import { NoticeMethod } from "../../../apis/NoitceMethod";
 import { useDispatch } from "react-redux";
 import { edit } from "../../../features/BoardSlice";
