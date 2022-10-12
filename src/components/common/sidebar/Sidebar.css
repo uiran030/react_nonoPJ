@@ -78,6 +78,10 @@
 .depth1 > li {
   margin-bottom: 5px;
   width: 220px;
+  border-radius: 8px;
+}
+.depth1 > li a {
+  border-radius: 8px;
 }
 .depth1 > li > a > p {
   padding: 13px 0;
@@ -88,7 +92,8 @@
   border-radius: 8px;
 }
 .depth1 > li:hover > a > .emo {
-  color: #1f6de2;
+  /* display: none; */
+  filter: none;
 }
 
 /* depth1 클릭 시 작업 (depth2보이기, 배경주기) */
@@ -97,13 +102,14 @@
 }
 .depth1 > li.on {
   height: 172px;
+  background-color: #e2f1ff;
+  border-radius: 8px;
 }
 .depth1 > li.on .liA {
   background-color: #e2f1ff;
-  border-radius: 8px 8px 0 0;
 }
 .depth1 > li.on .liA .emo {
-  color: #1f6de2;
+  filter: none;
 }
 .depth1 > li.on .depth2 {
   display: block;
@@ -112,39 +118,29 @@
 /* .depth2작업 */
 .depth2 {
   display: none;
-}
-.depth2 li {
-  border: 1px solid red;
-  background-color: #e2f1ff;
-  height: 40px;
-}
-.depth2 li.active {
-  color: #1f6de2;
-}
-.depth2 .btnactive {
-  color: #1f6de2;
-}
-.depth2 li:last-child {
   border-radius: 0 0 8px 8px;
 }
-.depth2 > li > a {
-  /* padding: 8px; */
-  display: flex;
-  align-items: center;
+.depth2 li {
+  height: 40px;
   position: relative;
 }
-.depth2 > li > a p {
-  padding-left: 50px;
-}
-.depth2 > li:hover > a {
-  height: 100%;
-  padding: 5px;
-}
-.depth2 > li:hover > a > p {
-  background-color: #f2f9ff;
+.depth2 li > a {
+  display: inline-block;
   width: 100%;
   height: 100%;
-  border-radius: 8px;
+  padding-left: 54px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.depth2 li > a p {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.depth2 li > .btnactive {
+  color: #1f6de2;
+  position: relative;
 }
 
 /* 네비메뉴 공통작업 */
@@ -153,7 +149,18 @@
   align-items: center;
 }
 .emo {
-  margin: 0 10px;
+  margin: 0 15px;
+  filter: invert(1) brightness(0);
+}
+.noShow {
+  display: none;
+}
+.show_arrow {
+  display: inline-block;
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* 반응형 화면 구현 */

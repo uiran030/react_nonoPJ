@@ -12,12 +12,14 @@
   position: relative;
 }
 .noticeListBody .full-list {
-  border: 1px solid red;
   width: 540px;
+  min-height: 650px;
   max-height: 650px;
-  overflow: scroll;
+  padding: 5px 0;
   height: 100%;
   position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 .noticeListBody .full-list::-webkit-scrollbar {
   /* display: none;*/
@@ -34,6 +36,10 @@
   max-height: 60px;
   cursor: pointer;
   padding: 20px 15px;
+  color: black;
+}
+.noticeListBody .full-list .depth1 .depth1Li.on {
+  color: red;
 }
 .noticeListBody .full-list .depth1 .depth1Li .list-left {
   max-width: 200px;
@@ -112,6 +118,8 @@
   position: absolute;
   bottom: 100%;
   right: 0;
+  display: flex;
+  align-items: center;
 }
 
 /* drop down menu css */
@@ -129,4 +137,11 @@
   background: #f1f4f8;
   padding: 15px;
   border: 1px solid black;
+}
+.display_menu > ul li {
+  display: flex;
+  align-items: center;
+}
+.arrow {
+  margin-left: 12px;
 }

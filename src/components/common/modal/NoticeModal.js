@@ -19,8 +19,11 @@ const NoticeModal = ({ onClose }) => {
   const dispatch = useDispatch();
   // const history = useHistory();
 
-  const handleTitle = event => {
-    setTitle(event.target.value);
+  const handleTitle = e => {
+    // setTitle(event.target.value);
+    // console.log(title);
+    setTitle(e.target.value);
+    console.log(e.target.value);
   };
   const handleContent = event => {
     setContent(event.target.value);
@@ -83,7 +86,12 @@ const NoticeModal = ({ onClose }) => {
 
   return (
     <div className="for_toast">
-      <ToastContainer style={{ zIndex: "999999" }} />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        style={{ zIndex: "999999" }}
+      />
       <Modal onClose={onClose}>
         <div className="modal">
           <section>
@@ -96,9 +104,10 @@ const NoticeModal = ({ onClose }) => {
                   onChange={handleTitle}
                   // value={title}
                 />
-                <button className="close" onClick={onClose}>
-                  <AiOutlineClose />
-                </button>
+                <button
+                  className="close btnCloseImg"
+                  onClose={onClose}
+                ></button>
               </header>
               <main>
                 <textarea

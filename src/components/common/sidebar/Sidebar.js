@@ -1,25 +1,27 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
-import { CgHome } from "react-icons/cg";
-import { BiBox, BiFile } from "react-icons/bi";
-import { AiOutlineSetting } from "react-icons/ai";
 import logo from "../../../assets/image/logo.png";
-import home from "../../../assets/image/Bounding box.png";
+import homeBlue from "../../../assets/image/homeBlue.png";
+import productBlue from "../../../assets/image/productBlue.png";
+import descriptionBlue from "../../../assets/image/descriptionBlue.png";
+import settingsBlue from "../../../assets/image/settingsBlue.png";
+import rightArrow from "../../../assets/image/arrowRight.png";
 
 const Sidebar = props => {
   const [click, setClick] = useState(0);
   const [btnActive, setBtnActive] = useState(props.index);
 
-  const data = [
-    {
-      page: "/",
-      title: "홈",
-    },
+  const main = [
+    { page: "/", title: "홈" },
     { page: "/noticeList", title: "공지사항 목록" },
     { page: "/", title: "입/출고 현황" },
   ];
-  // 값 셋팅.. / 페이지별로 이벤트 발생시켜서 숫자넣게하는 작업 필요함.
+  const product = [
+    { page: "/", title: "물품 목록" },
+    { page: "/", title: "새 물품 추가" },
+    { page: "/", title: "물품 상태 관리" },
+  ];
 
   const toggleActive = e => {
     setBtnActive(() => {
@@ -56,21 +58,31 @@ const Sidebar = props => {
               className={click === 0 ? "on" : ""}
             >
               <Link to="/" className="liA">
-                <img src={home} />
+                <img src={homeBlue} className="imgStyle emo" />
                 <p className="liP">메인 페이지</p>
               </Link>
               <ul className="depth2">
-                {data.map((item, index) => {
+                {main.map((item, index) => {
                   return (
                     <div>
-                      <Link
-                        to={item.page}
-                        className={"btn" + (index == btnActive ? "active" : "")}
-                      >
-                        <li value={index} onClick={toggleActive}>
-                          {item.title}
-                        </li>
-                      </Link>
+                      <li value={index} onClick={toggleActive}>
+                        <Link
+                          to={item.page}
+                          className={
+                            "btn" + (index == btnActive ? "active" : "")
+                          }
+                        >
+                          <img
+                            src={rightArrow}
+                            className={
+                              index == btnActive
+                                ? "show_arrow imgStyle"
+                                : "noShow"
+                            }
+                          />
+                          <p>{item.title}</p>
+                        </Link>
+                      </li>
                     </div>
                   );
                 })}
@@ -81,25 +93,34 @@ const Sidebar = props => {
               className={click === 1 ? "on" : ""}
             >
               <Link to="" className="liA">
-                <BiBox className="emo" />
+                <img src={productBlue} className="imgStyle emo" />
                 <p className="liP">물품 관리</p>
               </Link>
               <ul className="depth2">
-                <li>
-                  <Link to="">
-                    <p>물품 목록</p>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="">
-                    <p>새 물품 추가</p>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="">
-                    <p>물품 상태 관리</p>
-                  </Link>
-                </li>
+                {product.map((item, index) => {
+                  return (
+                    <div>
+                      <li value={index} onClick={toggleActive}>
+                        <Link
+                          to={item.page}
+                          className={
+                            "btn" + (index == btnActive ? "active" : "")
+                          }
+                        >
+                          <img
+                            src={rightArrow}
+                            className={
+                              index == btnActive
+                                ? "show_arrow imgStyle"
+                                : "noShow"
+                            }
+                          />
+                          <p>{item.title}</p>
+                        </Link>
+                      </li>
+                    </div>
+                  );
+                })}
               </ul>
             </li>
             <li
@@ -107,7 +128,7 @@ const Sidebar = props => {
               className={click === 2 ? "on" : ""}
             >
               <Link to="" className="liA">
-                <BiFile className="emo" />
+                <img src={descriptionBlue} className="imgStyle emo" />
                 <p className="liP">문서 관리</p>
               </Link>
               <ul className="depth2">
@@ -133,7 +154,7 @@ const Sidebar = props => {
               className={click === 3 ? "on" : ""}
             >
               <Link to="" className="liA">
-                <AiOutlineSetting className="emo" />
+                <img src={settingsBlue} className="imgStyle emo" />
                 <p className="liP">관리자 설정</p>
               </Link>
               <ul className="depth2">

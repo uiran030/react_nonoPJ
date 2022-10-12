@@ -29,15 +29,24 @@ textarea {
   border: none;
   resize: none;
 }
+.pL145 {
+  padding-left: 145px;
+}
+/* 화면 좌측 margin */
+.row {
+  margin-left: 280px;
+}
 
-/* 공통 클래스 작업 */
+/* 마진 작업 (공통적으로 많이 쓰이는 것만) */
 .mL10 {
   margin-left: 10px;
 }
+/* border radius 거의 공통으로 쓰임 */
 .bR8 {
   border-radius: 8px;
 }
 
+/* font color 작업 */
 .textHint {
   color: #7a7a7d;
 }
@@ -60,6 +69,8 @@ textarea {
 .error {
   color: #e21f1f;
 }
+
+/* background color 작업 */
 .back-primary {
   background-color: #1f6de2;
 }
@@ -70,10 +81,7 @@ textarea {
   background-color: #0043af;
 }
 
-.row {
-  margin-left: 280px;
-}
-
+/* font size 작업 */
 .fs12 {
   font-size: 12px;
 }
@@ -87,30 +95,13 @@ textarea {
   font-size: 20px;
 }
 
+/* button 작업들 */
 .btn-primary {
   border: 5px solid #1f6de2;
 }
-.btnhomeBlue {
-  background-image: url("./assets/image/Bounding\ box.png");
-  background-size: cover;
-  width: 24px;
-  height: 24px;
-}
-.btnadd {
-  background-image: url("./assets/image/add.png");
-  background-size: cover;
-  width: 24px;
-  height: 24px;
-}
 .btnaddBlue {
-  background-image: url("./assets/image/add\(blue\).png");
+  background-image: url("./assets/image/addBlue.png");
   background-size: cover;
-  width: 24px;
-  height: 24px;
-  border: 1px solid black;
-  padding: 5.25px;
-  /* filter: invert(1) brightness(0); */
-  /* fill: rgb(150, 0, 60); */
 }
 .btnList {
   background-image: url("./assets/image/list.png");
@@ -120,11 +111,8 @@ textarea {
   margin-right: 10px;
 }
 .btnListBlue {
-  background-image: url("./assets/image/list\(blue\).png");
+  background-image: url("./assets/image/listBlue.png");
   background-size: cover;
-  width: 24px;
-  height: 24px;
-  border: 1px solid black;
 }
 .btnList2 {
   background-image: url("./assets/image/format_line_spacing.png");
@@ -132,6 +120,10 @@ textarea {
   width: 24px;
   height: 24px;
   border: 1px solid black;
+}
+.btnCloseImg {
+  background-image: url("./assets/image/close.png");
+  background-size: cover;
 }
 .btnClose {
   color: #fff;
@@ -146,24 +138,19 @@ textarea {
   font-weight: 400;
   margin-right: 15px;
 }
-.btnArrowRight {
-  background-image: url("./assets/image/arrow_right\(blue\).png");
+/* src(=img) 공통 작업 */
+.imgStyle {
+  width: 24px;
+  height: 24px;
 }
 
 /* @media screen and (max-width:950px){
     .row{margin-left:200px;}
 } */
 
-/* 토스트창 디자인 변경하기 */
-/* :root {
-  --toastify-color-light: #0043af;
-  --toastify-text-color-light: #fff;
-  --toastify-text-weight: 400;
-  /* --toastify-icon-color: #fff; */
-/* --toastify-text-weight: 100; */
-/* --toastify-toast-min-height: 60px;
-  --toastify-toast-min-width: 420px; 
-} */
+/* 토스트창 디자인 작업 */
+.Toastify__toast-container {
+}
 .Toastify__toast {
   color: white;
   background-color: #0043af;
@@ -171,11 +158,17 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 420px;
+  height: 60px;
+  padding: 15px 20px;
 }
-.Toastify__toast > button {
-  color: white;
+.Toastify__close-button--light {
   opacity: 1;
+  color: white;
+  line-height: 42px;
   /* display: inline-block;
   width: 24px;
   height: 100%; */
+}
+.Toastify__close-button > svg {
 }

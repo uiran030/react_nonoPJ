@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import "./Header.css";
 
@@ -15,13 +14,12 @@ const Header = props => {
     setSearch("");
   };
 
-  // 값이 없을 때도 setSearchValue 보여줘야함
-
+  // 값이 없을 때도 setSearchValue 보여줘야함 (props.setSearchValue("")으로 해결)
   const onSearch = e => {
     e.preventDefault();
     if (search === null || search === "") {
+      props.setSearchValue("");
       console.log("no");
-      // props.~~
     } else {
       props.setSearchValue(search);
       console.log(search);
@@ -31,7 +29,7 @@ const Header = props => {
   return (
     <div className="header row">
       <div className="main">
-        <div className="mainTop">
+        <div className="mainTop padding">
           <h2>{props.name}</h2>
           <p className="fs14">{props.text}</p>
         </div>
@@ -45,7 +43,7 @@ const Header = props => {
             ></input>
             <div>
               <button
-                className="close"
+                className="close imgStyle"
                 onClick={onReset}
                 style={
                   search !== ""
@@ -53,7 +51,7 @@ const Header = props => {
                     : { display: "none" }
                 }
               />
-              <button className="search" onClick={onSearch} />
+              <button className="search imgStyle" onClick={onSearch} />
             </div>
           </div>
         )}

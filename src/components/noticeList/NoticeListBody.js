@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import "./NoticeListBody.css";
 import { NoticeMethod } from "../../apis/NoitceMethod";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import NoticeModal from "../common/modal/NoticeModal";
 import NoticeEditViewModal from "../common/modal/NoticeEditViewModal";
+import downArrow from "../../assets/image/arrow_downward_dark.png";
+import upArrow from "../../assets/image/arrow_upward_dark.png";
 
 const NoticeListBody = props => {
   const searchValue = props.searchValue;
@@ -30,30 +30,35 @@ const NoticeListBody = props => {
   // parameters
   const [column, setColumn] = useState("");
   const [order, setOrder] = useState("");
+  const [size, setSize] = useState(10);
 
   // drop down menu category
-  const [category, setCategory] = useState("생성날짜 내림차순");
+  const dataCategory = [
+    { text: "수정날짜", img: downArrow, fn: editDown },
+    { text: "수정날짜", img: upArrow, fn: editUp },
+    { text: "생성날짜", img: downArrow, fn: createDown },
+    { text: "생성날짜", img: upArrow, fn: createUp },
+  ];
+  const [category, setCategory] = useState("생성 날짜");
+  const [arrow, setArrow] = useState(false); //true일 때 오름차순, flase일 때 내림차순
 
   // list.index background
-  const [textColor, setTextColor] = useState("black");
+  // consyle, setListStyle] = useState("black");
+  const [isShow, setIsShow] = useState(false);
+  // const handleChangeText = e => {
+  //   setListStyle("red");
+  // };
 
   // scroll event 관련
-  const [scroll, setScroll] = useState("");
-  const handleScroll = () => {
-    console.log("fffff");
-  };
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-  // 이벤트 받아오는거 찾아보고 적용하기
+  function handleScroll() {
+    console.log("ddd");
+    setSize(size + 10);
+  }
 
   // get data를 불러오기 위한 useEffect
   useEffect(() => {
     // setQuery(searchValue);
-    const get = NoticeMethod.NoticeGet(column, order, searchValue);
+    const get = NoticeMethod.NoticeGet(column, order, searchValue, size);
     // console.log(get);
     const getData = () => {
       get.then(data => {
@@ -61,7 +66,7 @@ const NoticeListBody = props => {
       });
     };
     getData();
-  }, [column, order, searchValue]);
+  }, [column, order, searchValue, size]);
   console.log(list);
 
   const onClickButton = () => {
@@ -81,13 +86,12 @@ const NoticeListBody = props => {
   function onClickList(index) {
     const listIndex = list[index];
     console.log(listIndex);
-    // setTextColor(textColor === "black" ? "red" : "black");
     // listIndex;       //찾아서 해결
+    // setListStyle(true);
     setViewList(listIndex);
 
     // 날짜 YYYY-MM-DD를 YYYY년 MM월 DD일로 변경하기
     const date = listIndex.updatedAt;
-    // console.log(date);
     const update =
       date.substr(0, 4) +
       "년 " +
@@ -98,12 +102,9 @@ const NoticeListBody = props => {
     setChangeDate(update);
 
     setNoticeId(listIndex.noticeId);
-    // console.log(listIndex.noticeId);
-    // console.log(noticeId);
     setTitle(listIndex.title);
     setContent(listIndex.content);
     history.push("/noticeList");
-    // console.log(listIndex.content);
   }
 
   const noticeDel = noticeId => {
@@ -118,13 +119,12 @@ const NoticeListBody = props => {
   };
 
   function editDown() {
-    console.log("수정날짜 내림차순");
     const res = NoticeMethod.NoticeGet("updatedAt", "desc");
     setColumn("updatedAt");
     setOrder("desc");
-    setCategory("수정날짜 내림차순");
+    setCategory("수정 날짜");
+    setArrow(false);
     setDisplay(!display);
-    console.log(res);
 
     // 주소창 업데이트를 위한 history
     // history.push({
@@ -134,31 +134,28 @@ const NoticeListBody = props => {
   }
 
   function editUp() {
-    console.log("수정날짜 오름차순");
     const res = NoticeMethod.NoticeGet("updatedAt", "asc");
     setColumn("updatedAt");
     setOrder("asc");
-    setCategory("수정날짜 오름차순");
+    setCategory("수정 날짜");
+    setArrow(true);
     setDisplay(!display);
-    console.log(res);
   }
   function createDown() {
-    console.log("생성날짜 내림차순");
     const res = NoticeMethod.NoticeGet("createdAt", "desc");
     setColumn("createdAt");
     setOrder("desc");
-    setCategory("생성날짜 내림차순");
+    setCategory("생성 날짜");
+    setArrow(false);
     setDisplay(!display);
-    console.log(res);
   }
   function createUp() {
-    console.log("생성날짜 오름차순");
     const res = NoticeMethod.NoticeGet("createdAt", "asc");
     setColumn("createdAt");
     setOrder("asc");
-    setCategory("생성날짜 오름차순");
+    setCategory("생성 날짜");
+    setArrow(true);
     setDisplay(!display);
-    console.log(res);
   }
 
   return (
@@ -166,30 +163,46 @@ const NoticeListBody = props => {
       <div className="up-btn"></div>
       <div className="listFlex">
         <div className="position_change">
-          <button className="upBtn" onClick={e => setDisplay(!display)}>
+          <button
+            className="upBtn primaryDark"
+            onClick={e => setDisplay(!display)}
+          >
             {category}
+            {arrow == true ? (
+              <img src={upArrow} className="imgStyle" />
+            ) : (
+              <img src={downArrow} className="imgStyle" />
+            )}
           </button>
           {display && (
             <div className="display_menu">
-              <ul className="bR8 textDark">
-                <li onClick={editDown}>수정날짜 내림차순</li>
-                <li onClick={editUp}>수정날짜 오름차순</li>
-                <li onClick={createDown}>생성날짜 내림차순</li>
-                <li onClick={createUp}>생성날짜 오름차순</li>
+              <ul className="bR8 textDark fs14">
+                {dataCategory.map((data, index) => {
+                  return (
+                    <li onClick={data.fn} index={index}>
+                      {data.text}
+                      <img src={data.img} className="imgStyle arrow" />
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}
-          <div className="full-list" id="container">
+          <div className="full-list" id="full-list" onScroll={handleScroll}>
             <ul className="depth1">
               {list &&
                 list.map((list, index) => (
                   <li
+                    // className={
+                    //   "depth1Li" + (index == listActive ? "active" : "")
+                    //
                     className="depth1Li"
                     key={index}
+                    // onClick={toggleActive}
                     onClick={() => {
                       onClickList(index);
                     }}
-                    style={{ color: textColor }}
+                    // style={{ color: listStyle }}
                   >
                     <div className="list-left">
                       <p className="list-data">{list.title}</p>
@@ -211,7 +224,10 @@ const NoticeListBody = props => {
           </div>
         </div>
         <div className="position_change">
-          <button className="btnaddBlue upBtn" onClick={onClickButton} />
+          <button
+            className="btnaddBlue upBtn imgStyle"
+            onClick={onClickButton}
+          />
           {isOpen && (
             <NoticeModal
               onClose={() => {

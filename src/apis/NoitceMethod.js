@@ -45,14 +45,14 @@ async function NoticePost(title, content, focus, createdAt, updatedAt, writer) {
 
 // Notice 조회(get)
 // export const NoticeGet = async queryParameter => {
-async function NoticeGet(column, order, query) {
+async function NoticeGet(column, order, query, size) {
   try {
     const params = {
       content: true,
       column: column,
       order: order,
       query: query,
-      size: 20,
+      size: size,
     };
     const response = await Instance.get("/api/v1/notice", {
       params,

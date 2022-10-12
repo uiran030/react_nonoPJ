@@ -20,7 +20,6 @@ function MainText() {
   const [created, setCreated] = useState("");
   const [updated, setUpdated] = useState("");
   const [noticeId, setNoticeId] = useState("");
-  // console.log(noticeId);
 
   const dispatch = useDispatch();
 
@@ -57,8 +56,11 @@ function MainText() {
             <div className="topmenu">
               <h3>공지사항</h3>
               <div className="topmenu_icon">
-                <Link to="/noticeList" className="btnListBlue" />
-                <button className="emo btnaddBlue" onClick={onClickButton1} />
+                <Link to="/noticeList" className="btnListBlue imgStyle" />
+                <button
+                  className="btnaddBlue mL10 imgStyle"
+                  onClick={onClickButton1}
+                />
                 {isOpen1 && (
                   <NoticeModal
                     onClose={() => {

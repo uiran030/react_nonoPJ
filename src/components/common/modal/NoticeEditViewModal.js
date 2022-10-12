@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
-import { AiOutlineClose } from "react-icons/ai";
 import "./NoticeModal.css";
 import { NoticeMethod } from "../../../apis/NoitceMethod";
 import { useDispatch } from "react-redux";
@@ -84,7 +83,7 @@ const NoticeEditModal = props => {
   };
 
   const saveChange = e => {
-    if (title === "") {
+    if (title === "" || title === null) {
       toast("제목을 입력해주세요.");
       console.log(title.target.value);
       e.preventDefault();
@@ -145,7 +144,7 @@ const NoticeEditModal = props => {
     <div className="for_toast">
       <ToastContainer
         position="top-center"
-        autoClose={2000}
+        autoClose={3000}
         hideProgressBar={true}
         style={{ zIndex: "999999" }}
       />
@@ -160,7 +159,7 @@ const NoticeEditModal = props => {
                     onChange={handleTitle}
                     // value 속성이 변하는 값일 때 defaultValue를 사용함
                     // react에서 value 값이 read 전용이라 수정이 안되므로 defaultValue를 사용
-                    defaultValue={title}
+                    defaultValue={title || ""}
                     disabled={disable}
                   />
                 ) : (
@@ -169,14 +168,15 @@ const NoticeEditModal = props => {
                     onChange={handleTitle}
                     // value 속성이 변하는 값일 때 defaultValue를 사용함
                     // react에서 value 값이 read 전용이라 수정이 안되므로 defaultValue를 사용
-                    defaultValue={title}
+                    defaultValue={title || ""}
                     disabled={disableValue}
                   />
                 )}
 
-                <button className="close" onClose={onCloseModal}>
-                  <AiOutlineClose />
-                </button>
+                <button
+                  className="close btnCloseImg"
+                  onClose={onCloseModal}
+                ></button>
               </header>
               {/* header,body - figma 이해 잘못했던 부분 
             (바로 수정가능이 아니라 우선 값만 불러오기) */}
