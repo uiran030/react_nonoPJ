@@ -43,8 +43,10 @@ const NoticeListBody = props => {
   const [arrow, setArrow] = useState(false); //true일 때 오름차순, flase일 때 내림차순
 
   // list.index background
-  // consyle, setListStyle] = useState("black");
   const [isShow, setIsShow] = useState(false);
+  const onShowList = () => {
+    setIsShow(!isShow);
+  };
   // const handleChangeText = e => {
   //   setListStyle("red");
   // };
@@ -87,7 +89,7 @@ const NoticeListBody = props => {
     const listIndex = list[index];
     console.log(listIndex);
     // listIndex;       //찾아서 해결
-    // setListStyle(true);
+    setIsShow(true);
     setViewList(listIndex);
 
     // 날짜 YYYY-MM-DD를 YYYY년 MM월 DD일로 변경하기
@@ -196,11 +198,15 @@ const NoticeListBody = props => {
                     // className={
                     //   "depth1Li" + (index == listActive ? "active" : "")
                     //
-                    className="depth1Li"
+                    className={
+                      index == isShow ? "depth1Li changeDepth1Li" : "depth1Li"
+                    }
+                    // className="depth1Li"
                     key={index}
                     // onClick={toggleActive}
                     onClick={() => {
                       onClickList(index);
+                      onShowList(index);
                     }}
                     // style={{ color: listStyle }}
                   >

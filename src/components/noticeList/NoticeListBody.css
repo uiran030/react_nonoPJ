@@ -38,8 +38,11 @@
   padding: 20px 15px;
   color: black;
 }
-.noticeListBody .full-list .depth1 .depth1Li.on {
-  color: red;
+.noticeListBody .full-list .depth1 .changeDepth1Li {
+  background-color: red;
+}
+.noticeListBody .full-list .depth1 .depth1Li:hover {
+  background-color: #e2f1ff;
 }
 .noticeListBody .full-list .depth1 .depth1Li .list-left {
   max-width: 200px;
