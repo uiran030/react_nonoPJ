@@ -10,7 +10,6 @@ import upArrow from "../../assets/image/arrow_upward_dark.png";
 
 const NoticeListBody = props => {
   const searchValue = props.searchValue;
-  console.log(`값 : ${searchValue}`);
 
   const [list, setList] = useState([]);
   const [viewList, setViewList] = useState([]);
@@ -42,18 +41,10 @@ const NoticeListBody = props => {
   const [category, setCategory] = useState("생성 날짜");
   const [arrow, setArrow] = useState(false); //true일 때 오름차순, flase일 때 내림차순
 
-  // list.index background
-  const [isShow, setIsShow] = useState(false);
-  const onShowList = () => {
-    setIsShow(!isShow);
-  };
-  // const handleChangeText = e => {
-  //   setListStyle("red");
-  // };
+  const [isIndex, setIsIndex] = useState(null);
 
   // scroll event 관련
   function handleScroll() {
-    console.log("ddd");
     setSize(size + 10);
   }
 
@@ -69,7 +60,7 @@ const NoticeListBody = props => {
     };
     getData();
   }, [column, order, searchValue, size]);
-  console.log(list);
+  // console.log(list);
 
   const onClickButton = () => {
     setIsOpen(true);
@@ -84,12 +75,12 @@ const NoticeListBody = props => {
   const handleContent = event => {
     setContent(event.target.value);
   };
-
+  console.log(isIndex);
   function onClickList(index) {
     const listIndex = list[index];
-    console.log(listIndex);
-    // listIndex;       //찾아서 해결
-    setIsShow(true);
+    // console.log(listIndex);
+    setIsIndex(index);
+    console.log(index);
     setViewList(listIndex);
 
     // 날짜 YYYY-MM-DD를 YYYY년 MM월 DD일로 변경하기
@@ -199,14 +190,14 @@ const NoticeListBody = props => {
                     //   "depth1Li" + (index == listActive ? "active" : "")
                     //
                     className={
-                      index == isShow ? "depth1Li changeDepth1Li" : "depth1Li"
+                      isIndex == index ? "depth1Li changeDepth1Li" : "depth1Li"
                     }
                     // className="depth1Li"
                     key={index}
                     // onClick={toggleActive}
                     onClick={() => {
                       onClickList(index);
-                      onShowList(index);
+                      // onShowList(false);
                     }}
                     // style={{ color: listStyle }}
                   >
